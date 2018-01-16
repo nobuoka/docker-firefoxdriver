@@ -12,7 +12,7 @@ dependencies:
     - ip route | awk '/docker0/ { print $NF }' > docker0-ip.txt; cat docker0-ip.txt
 test:
   override:
-    - docker run --name server -d --add-host=dockerhost:`cat docker0-ip.txt` quay.io/wakaba/firefoxdriver:stable /fx && sleep 10
+    - docker run --name server -d -p 9516:9516 --add-host=dockerhost:`cat docker0-ip.txt` quay.io/wakaba/firefoxdriver:stable /fx && sleep 10
     - curl -f http://localhost:9516/status
     - cd perl-web-driver-client && TEST_WD_URL=http://localhost:9516 WEBUA_DEBUG=2 TEST_SERVER_LISTEN_HOST=0.0.0.0 TEST_SERVER_HOSTNAME=dockerhost make test
     - docker logs server
