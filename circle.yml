@@ -7,7 +7,7 @@ dependencies:
     - git config --global user.name "CircleCI"
     - docker info
     - docker build -t quay.io/wakaba/firefoxdriver:stable stable
-    - git clone https://github.com/manakai/perl-web-driver-client
+    - git clone --branch modify/not-use-http-proxy-port-property-always https://github.com/nobuoka/perl-web-driver-client
     - cd perl-web-driver-client && make test-deps
     - ip route | awk '/docker0/ { print $NF }' > docker0-ip.txt; cat docker0-ip.txt
 test:
